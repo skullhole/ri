@@ -6,7 +6,8 @@
 and the executed RI are being stored in the variable *ri_executed*
 
 2. Not to check all the modules at once there's a hook that lets system know that the module contains the release instructions: hook_ri()
-```// we don't want to do here. yet..
+```
+// we don't want to do here. yet..
 function MODULE_ri() {
   return TRUE;
 }
