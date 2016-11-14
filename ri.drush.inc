@@ -9,6 +9,11 @@ function ri_drush_command() {
     'aliases' => array(),
   );
 
+  $items['ri-preview'] = array(
+    'description' => 'Previews scheduled release instructions.',
+    'aliases' => array(),
+  );
+
   return $items;
 }
 
@@ -16,40 +21,7 @@ function ri_drush_command() {
  * Callback for "ri" command
  */
 function drush_ri() {
-  $updates = array();
-
-  if ($ri_files = ri_files()) {
-    foreach ($ri_files as $ri_file) {
-      // Load file.
-      module_load_include('inc', $ri_file['module'], 'ri/' . $ri_file['name']);
-
-      // Get function names prefix.
-      $separator = '_';
-      $function_name = trim(preg_replace('@[^a-z0-9_]+@', $separator, drupal_strtolower($ri_file['name'])), $separator);
-
-      // Prepare regular expression to match all possible defined hook_update_N().
-      $regexp = '/^' . $function_name . '_(?P<version>\d+)$/';
-      $functions = get_defined_functions();
-      // Narrow this down to functions ending with an integer, since all
-      // hook_update_N() functions end this way, and there are other
-      // possible functions which match '_update_'. We use preg_grep() here
-      // instead of foreaching through all defined functions, since the loop
-      // through all PHP functions can take significant page execution time
-      // and this function is called on every administrative page via
-      // system_requirements().
-      foreach (preg_grep('/_\d+$/', $functions['user']) as $function) {
-        // If this function is a module update function, add it to the list of
-        // module updates.
-        if (preg_match($regexp, $function, $matches)) {
-          $updates[$ri_file['module']][$function] = $matches['version'];
-        }
-      }
-      // Ensure that updates are applied in numerical order.
-      foreach ($updates as &$module_updates) {
-        asort($module_updates, SORT_NUMERIC);
-      }
-    }
-  }
+  $updates = ri_updates(FALSE);
 
   // Now run the updates.
   foreach ($updates as $module => $functions) {
@@ -73,6 +45,22 @@ function drush_ri() {
   }
 
   drush_log('Release instructions were executed.', 'ok');
+}
+
+/**
+ * Callback for "ri-preview" command
+ */
+function drush_ri_preview() {
+  $updates = ri_updates(TRUE);
+
+  foreach ($updates as $module => $functions) {
+    foreach ($functions as $function => $version) {
+      $message = $function;
+
+      // Message.
+      drush_log($message, 'status');
+    }
+  }
 }
 
 /**
@@ -119,6 +107,61 @@ function ri_files() {
   }
 
   return $ri_files;
+}
+
+/**
+ * @param bool $exclude_executed
+ *
+ * @return array
+ */
+function ri_updates($exclude_executed = TRUE) {
+  $updates = array();
+
+  if ($ri_files = ri_files()) {
+    foreach ($ri_files as $ri_file) {
+      // Load file.
+      module_load_include('inc', $ri_file['module'], 'ri/' . $ri_file['name']);
+
+      // Get function names prefix.
+      $separator = '_';
+      $function_name = trim(preg_replace('@[^a-z0-9_]+@', $separator, drupal_strtolower($ri_file['name'])), $separator);
+
+      // Prepare regular expression to match all possible defined hook_update_N().
+      $regexp = '/^' . $function_name . '_(?P<version>\d+)$/';
+      $functions = get_defined_functions();
+      // Narrow this down to functions ending with an integer, since all
+      // hook_update_N() functions end this way, and there are other
+      // possible functions which match '_update_'. We use preg_grep() here
+      // instead of foreaching through all defined functions, since the loop
+      // through all PHP functions can take significant page execution time
+      // and this function is called on every administrative page via
+      // system_requirements().
+      foreach (preg_grep('/_\d+$/', $functions['user']) as $function) {
+        // If this function is a module update function, add it to the list of
+        // module updates.
+        if (preg_match($regexp, $function, $matches)) {
+          $updates[$ri_file['module']][$function] = $matches['version'];
+        }
+      }
+      // Ensure that updates are applied in numerical order.
+      foreach ($updates as &$module_updates) {
+        asort($module_updates, SORT_NUMERIC);
+      }
+    }
+  }
+
+  // Exclude.
+  if ($exclude_executed) {
+    foreach ($updates as $module => $functions) {
+      foreach ($functions as $function => $version) {
+        if (ri_executed_get($function)) {
+          unset($updates[$module][$function]);
+        }
+      }
+    }
+  }
+
+  return $updates;
 }
 
 /**
