@@ -14,6 +14,23 @@ function ri_drush_command() {
     'aliases' => array(),
   );
 
+  $items['ri-status'] = array(
+    'description' => 'Sets status for the release instruction function.',
+    'aliases' => array(),
+    'arguments' => array(
+      'function' => 'Function name.',
+      'flag' => 'Flag (1 or 0).',
+    ),
+  );
+
+  $items['ri-function'] = array(
+    'description' => 'Runs a single release instruction.',
+    'aliases' => array(),
+    'arguments' => array(
+      'function' => 'Function name.',
+    ),
+  );
+
   return $items;
 }
 
@@ -31,16 +48,7 @@ function drush_ri() {
         continue;
       }
 
-      // Execute.
-      if (!($message = $function())) {
-        $message = 'Release instructions ' . $function . '() were executed.';
-      }
-
-      // Mark as executed.
-      ri_executed_set($function);
-
-      // Message.
-      drush_log($message, 'status');
+      ri_execute_function($function);
     }
   }
 
@@ -64,6 +72,21 @@ function drush_ri_preview() {
 }
 
 /**
+ * Callback for "ri-status" command
+ */
+function drush_ri_status($function, $flag) {
+  ri_executed_set($function, $flag);
+  drush_log(sprintf('Status for %s() was set to %s.', $function, $flag ? 1 : 0), 'ok');
+}
+
+/**
+ * Callback for "ri-function" command
+ */
+function drush_ri_function($function) {
+  ri_execute_function($function);
+}
+
+/**
  * @param null $function
  *
  * @return bool|null
@@ -79,8 +102,29 @@ function ri_executed_get($function = NULL) {
  */
 function ri_executed_set($function, $flag = TRUE) {
   $ri_executed = ri_executed_get();
-  $ri_executed[$function] = $flag;
+  $ri_executed[$function] = $flag ? 1 : 0;
   variable_set('ri_executed', $ri_executed);
+}
+
+/**
+ * @param $function
+ */
+function ri_execute_function($function) {
+  // Execute.
+  if (function_exists($function)) {
+    if (!($message = $function())) {
+      $message = 'Release instructions ' . $function . '() were executed.';
+    }
+
+    // Mark as executed.
+    ri_executed_set($function);
+  }
+  else {
+    $message = 'Release instruction ' . $function . '() does not exist.';
+  }
+
+  // Message.
+  drush_log($message, 'status');
 }
 
 /**
