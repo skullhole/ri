@@ -85,7 +85,7 @@ function drush_ri_status($function, $flag) {
 function drush_ri_function($function) {
   // Preload the files.
   ri_updates();
-    
+  
   ri_execute_function($function);
 }
 
@@ -113,6 +113,11 @@ function ri_executed_set($function, $flag = TRUE) {
  * @param $function
  */
 function ri_execute_function($function) {
+  // Delimiter.
+  $delimiter = '##############################';
+  echo $delimiter, "\n";
+  echo $function, '()', "\n";
+
   // Execute.
   if (function_exists($function)) {
     if (!($message = $function())) {
@@ -128,6 +133,9 @@ function ri_execute_function($function) {
 
   // Message.
   drush_log($message, 'status');
+
+  // Delimiter.
+  echo $delimiter, "\n\n";
 }
 
 /**
