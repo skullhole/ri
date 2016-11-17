@@ -83,6 +83,9 @@ function drush_ri_status($function, $flag) {
  * Callback for "ri-function" command
  */
 function drush_ri_function($function) {
+  // Preload the files.
+  ri_updates();
+    
   ri_execute_function($function);
 }
 
