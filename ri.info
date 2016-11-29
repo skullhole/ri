@@ -1,4 +1,4 @@
 name = Release Instructions
 core = 7.x
-package = Custom
+package = ri
 project status url = https://raw.githubusercontent.com/skullhole/ri/master/release.xml
