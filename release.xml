@@ -1,0 +1,85 @@
+<project xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <title>skullhole/ri</title>
+    <short_name>ri</short_name>
+    <dc:creator>skullhole</dc:creator>
+    <type>project_module</type>
+    <api_version>7.x</api_version>
+    <recommended_major>1</recommended_major>
+    <supported_majors>1</supported_majors>
+    <default_major>1</default_major>
+    <project_status>published</project_status>
+    <terms>
+        <term>
+            <name>Projects</name>
+            <value>Modules</value>
+        </term>
+        <term>
+            <name>Maintenance status</name>
+            <value>Actively maintained</value>
+        </term>
+        <term>
+            <name>Development status</name>
+            <value>Under active development</value>
+        </term>
+    </terms>
+    <releases>
+        <release>
+            <name>ri 7.x-1.1</name>
+            <version>7.x-1.1</version>
+            <tag>7.x-1.1</tag>
+            <version_major>1</version_major>
+            <version_patch>1</version_patch>
+            <status>published</status>
+            <release_link>https://github.com/skullhole/ri/releases/tag/7.x-1.1</release_link>
+            <download_link>https://api.github.com/repos/skullhole/ri/tarball/7.x-1.1?access_token=</download_link>
+            <date>1479617479</date>
+            <terms>
+            </terms>
+            <files>
+                <file>
+                    <url>https://api.github.com/repos/skullhole/ri/zipball/7.x-1.1?access_token=</url>
+                    <archive_type>zip</archive_type>
+                    <md5></md5>
+                    <size></size>
+                    <filedate>1479617479</filedate>
+                </file>
+                <file>
+                    <url>https://api.github.com/repos/skullhole/ri/tarball/7.x-1.1?access_token=</url>
+                    <archive_type>tar.gz</archive_type>
+                    <md5></md5>
+                    <size></size>
+                    <filedate>1479617479</filedate>
+                </file>
+            </files>
+        </release>
+        <release>
+            <name>ri 7.x-1.0</name>
+            <version>7.x-1.0</version>
+            <tag>7.x-1.0</tag>
+            <version_major>1</version_major>
+            <version_patch>0</version_patch>
+            <status>published</status>
+            <release_link>https://github.com/skullhole/ri/releases/tag/7.x-1.0</release_link>
+            <download_link>https://api.github.com/repos/skullhole/ri/tarball/7.x-1.0?access_token=</download_link>
+            <date>1478116186</date>
+            <terms>
+            </terms>
+            <files>
+                <file>
+                    <url>https://api.github.com/repos/skullhole/ri/zipball/7.x-1.0?access_token=</url>
+                    <archive_type>zip</archive_type>
+                    <md5></md5>
+                    <size></size>
+                    <filedate>1478116186</filedate>
+                </file>
+                <file>
+                    <url>https://api.github.com/repos/skullhole/ri/tarball/7.x-1.0?access_token=</url>
+                    <archive_type>tar.gz</archive_type>
+                    <md5></md5>
+                    <size></size>
+                    <filedate>1478116186</filedate>
+                </file>
+            </files>
+        </release>
+    </releases>
+</project>
