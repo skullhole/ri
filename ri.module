@@ -1,2 +1,8 @@
 <?php
 
+/**
+ * Implements hook_ri().
+ */
+function ri_ri() {
+  return TRUE;
+}

@@ -200,7 +200,7 @@ function ri_updates($exclude_executed = TRUE) {
       }
       // Ensure that updates are applied in numerical order.
       foreach ($updates as &$module_updates) {
-        asort($module_updates, SORT_NUMERIC);
+        ksort($module_updates);
       }
     }
   }
@@ -217,11 +217,4 @@ function ri_updates($exclude_executed = TRUE) {
   }
 
   return $updates;
-}
-
-/**
- * Implements hook_ri().
- */
-function ri_ri() {
-  return TRUE;
 }
