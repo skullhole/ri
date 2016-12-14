@@ -6,3 +6,51 @@
 function ri_ri() {
   return TRUE;
 }
+
+/**
+ * Reverts features.
+ *
+ * @param $modules
+ */
+function _ri_revert_modules($modules) {
+  if (is_string($modules)) {
+    $modules = explode(' ', $modules);
+  }
+  if (is_array($modules)) {
+    foreach ($modules as $module) {
+      $module = trim($module);
+      if ($module) {
+        features_revert_module($module);
+        drush_log('Reverted feature *' . $module . '*', 'status');
+      }
+    }
+  }
+}
+
+/**
+ * Enables modules.
+ *
+ * @param $modules
+ */
+function _ri_enable_modules($modules) {
+  if (is_string($modules)) {
+    $modules = explode(' ', $modules);
+  }
+  if (is_array($modules)) {
+    foreach ($modules as $module) {
+      $module = trim($module);
+      if ($module) {
+        module_enable(array($module));
+        drush_log('Enabled module *' . $module . '*', 'status');
+      }
+    }
+  }
+}
+
+/**
+ * Flushes caches.
+ */
+function _ri_flush_cache() {
+  drupal_flush_all_caches();
+  drush_log('Caches cleared', 'status');
+}
