@@ -17,6 +17,8 @@ function _ri_revert_modules($modules) {
     $modules = explode(' ', $modules);
   }
   if (is_array($modules)) {
+    $modules = array_unique($modules);
+    $modules = array_filter($modules);
     foreach ($modules as $module) {
       $module = trim($module);
       if ($module) {
@@ -37,6 +39,8 @@ function _ri_enable_modules($modules) {
     $modules = explode(' ', $modules);
   }
   if (is_array($modules)) {
+    $modules = array_unique($modules);
+    $modules = array_filter($modules);
     foreach ($modules as $module) {
       $module = trim($module);
       if ($module) {
