@@ -11,12 +11,12 @@ function ri_drush_command() {
 
   $items['ri-preview'] = array(
     'description' => 'Previews scheduled release instructions.',
-    'aliases' => array(),
+    'aliases' => array('rip'),
   );
 
   $items['ri-status'] = array(
     'description' => 'Sets status for the release instruction function.',
-    'aliases' => array(),
+    'aliases' => array('ris'),
     'arguments' => array(
       'function' => 'Function name.',
       'flag' => 'Flag (1 or 0).',
@@ -25,7 +25,7 @@ function ri_drush_command() {
 
   $items['ri-function'] = array(
     'description' => 'Runs a single release instruction.',
-    'aliases' => array(),
+    'aliases' => array('rif'),
     'arguments' => array(
       'function' => 'Function name.',
     ),
