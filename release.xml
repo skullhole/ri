@@ -24,31 +24,31 @@
     </terms>
     <releases>
         <release>
-            <name>ri 7.x-1.4</name>
-            <version>7.x-1.4</version>
-            <tag>7.x-1.4</tag>
+            <name>ri 7.x-1.5</name>
+            <version>7.x-1.5</version>
+            <tag>7.x-1.5</tag>
             <version_major>1</version_major>
-            <version_patch>4</version_patch>
+            <version_patch>5</version_patch>
             <status>published</status>
-            <release_link>https://github.com/skullhole/ri/releases/tag/7.x-1.4</release_link>
-            <download_link>https://api.github.com/repos/skullhole/ri/tarball/7.x-1.4</download_link>
-            <date>1485965695</date>
+            <release_link>https://github.com/skullhole/ri/releases/tag/7.x-1.5</release_link>
+            <download_link>https://api.github.com/repos/skullhole/ri/tarball/7.x-1.5</download_link>
+            <date>1485966515</date>
             <terms>
             </terms>
             <files>
                 <file>
-                    <url>https://api.github.com/repos/skullhole/ri/zipball/7.x-1.4</url>
+                    <url>https://api.github.com/repos/skullhole/ri/zipball/7.x-1.5</url>
                     <archive_type>zip</archive_type>
                     <md5></md5>
                     <size></size>
-                    <filedate>1485965695</filedate>
+                    <filedate>1485966515</filedate>
                 </file>
                 <file>
-                    <url>https://api.github.com/repos/skullhole/ri/tarball/7.x-1.4</url>
+                    <url>https://api.github.com/repos/skullhole/ri/tarball/7.x-1.5</url>
                     <archive_type>tar.gz</archive_type>
                     <md5></md5>
                     <size></size>
-                    <filedate>1485965695</filedate>
+                    <filedate>1485966515</filedate>
                 </file>
             </files>
         </release>
