@@ -84,9 +84,26 @@ function drush_ri_status($function, $flag) {
  */
 function drush_ri_function($function) {
   // Preload the files.
-  ri_updates();
-  
-  ri_execute_function($function);
+  $updates = ri_updates(FALSE);
+
+  // Function.
+  if (FALSE === strpos($function, '*')) {
+    ri_execute_function($function);
+  }
+
+  // Wildcard.
+  else {
+    $pattern = '@^' . str_replace('*', '.*', $function) . '$@';
+
+    // Now run the updates.
+    foreach ($updates as $module => $functions) {
+      foreach ($functions as $function => $version) {
+        if (preg_match($pattern, $function)) {
+          ri_execute_function($function);
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -140,7 +157,6 @@ function ri_execute_function($function) {
 
 /**
  * Finds all the Release Instriction files.
- *
  * @return array
  */
 function ri_files() {
