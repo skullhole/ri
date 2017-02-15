@@ -52,6 +52,28 @@ function _ri_enable_modules($modules) {
 }
 
 /**
+ * Disables modules.
+ *
+ * @param $modules
+ */
+function _ri_disable_modules($modules) {
+  if (is_string($modules)) {
+    $modules = explode(' ', $modules);
+  }
+  if (is_array($modules)) {
+    $modules = array_unique($modules);
+    $modules = array_filter($modules);
+    foreach ($modules as $module) {
+      $module = trim($module);
+      if ($module) {
+        module_disable(array($module));
+        drush_log('Disabled module *' . $module . '*', 'status');
+      }
+    }
+  }
+}
+
+/**
  * Flushes caches.
  */
 function _ri_flush_cache() {
